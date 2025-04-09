@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -84,11 +85,17 @@ namespace CodeReview
         private void OnSyntaxNodeActionEditor(SyntaxNodeAnalysisContext context)
         {
             var usingDirective = (UsingDirectiveSyntax)context.Node;
-
             if (usingDirective.Name == null || usingDirective.Name.ToString() != "UnityEditor") return;
             var filePath = context.Node.SyntaxTree.FilePath;
 
-            if (filePath.Contains("/Editor/")) return;
+            filePath = filePath.Replace("\\", "/");
+
+            if (filePath.Contains("/Editor/"))
+            {
+                return;
+            }
+
+
             var root = context.Node.SyntaxTree.GetRoot(context.CancellationToken);
             var span = usingDirective.Span;
 
