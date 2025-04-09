@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace CodeReview
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class ZGameDiagnosticAnalyzer : DiagnosticAnalyzer
+    public class UnityDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         private DiagnosticDescriptor EditorRule
         {
