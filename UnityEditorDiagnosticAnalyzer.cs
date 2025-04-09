@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,16 @@ namespace CodeReview
 {
     public partial class UnityDiagnosticAnalyzer
     {
+   
+
+        private readonly DiagnosticDescriptor _editorDescriptor = new DiagnosticDescriptor(
+            "ZG001",
+            "检测到在非Editor文件下使用了Using UnityEditor",
+            "检测到在非Editor文件下使用了Using UnityEditor",
+            "ZGame",
+            DiagnosticSeverity.Error,
+            true);
+
         private static bool IsWithinUnityEditorPreprocessorDirective(SyntaxNode root, TextSpan span)
         {
             var relevantDirectives = new Stack<DirectiveTriviaSyntax>();
